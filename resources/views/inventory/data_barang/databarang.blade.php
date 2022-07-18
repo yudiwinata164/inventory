@@ -1,41 +1,56 @@
-@extends('inventory/layouts/sidebar')
+@extends('inventory.layouts.main')
 
 @section('content')
     <!-- Recent Sales Start -->
     <div class="container-fluid pt-4 px-4">
-        <div class="bg-light text-center rounded p-4">
+        @if (session()->has('sukses'))
+        {{-- Alert Sukses --}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>{{ session('sukses') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        <div class="bg-light rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">Data Barang IT RSIA Puri Bunda Denpasar</h6>
-                <a href="/databarang/create" class="btn btn-success">Tambah Data</a>
+                <h6 class="mb-0">Data Barang Aktif RSIA Puri Bunda Denpasar</h6>
+                <a href="{{ route("databarang.create") }}" class="btn btn-outline-primary text-nowrap d-flex align-items-center gap-2"><span class="material-symbols-rounded">add_circle</span>Tambah Data</a>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
-                        <tr class="text-dark">
+                        <tr class="text-dark text-center text-nowrap">
                             <th scope="col">No</th>
                             <th scope="col">Nama Barang</th>
                             <th scope="col">Kode Barang</th>
-                            <th scope="col">Unit</th>
-                            <th scope="col">Detail Barang</th>
+                            <th scope="col">Jumlah Maintenance</th>
+                            <th scope="col">Opsi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
+                        @foreach ($databarang as $item)
                         <tr>
-                            <td>1</td>
-                            <td>Laptop1</td>
-                            <td>111.111.111</td>
-                            <td>Mezzanin</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td class="text-start">{{ $item->nama_barang }}</td>
+                            <td>{{ $item->kode_barang }}</td>
+                            <td>{{ $item->maintenance->count() }}</td>
                             <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailBarang">Detail</button>
-                                <button type="button" class="btn btn-warning">Ubah</button>
-                                <button type="button" onclick="return " class="btn btn-danger">Hapus</button>
+                                <div class="row g-2">
+                                    <div class="col"><a href="{{ route("databarang.detail", $item->id) }}" class="btn btn-primary w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">info</span>Detail</a></div>
+                                    <div class="col"><a href="{{ route("maintenance.index", $item->id) }}" class="btn btn-warning w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">settings</span>Maintenance</a></div>
+                                    <form action="{{ route("databarang.destroy", $item->id) }}" method="POST"  class="col w-fit">
+                                        @csrf
+                                        @method("DELETE")
+                                        <button type="submit" onclick="return confirm('Yakin ingin menghapus data ini?')" class="btn btn-danger w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">delete</span>Hapus</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
                 <!-- Modal -->
-                <div class="modal fade" id="detailBarang" tabindex="-1" aria-labelledby="detailBarangLabel" aria-hidden="true">
+                {{-- <div class="modal fade" id="detailBarang" tabindex="-1" aria-labelledby="detailBarangLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -158,20 +173,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Recent Sales End -->
-
-    <!-- Footer Start -->
-    <div class="container-fluid pt-4 px-4">
-        <div class="bg-light rounded-top p-4">
-            <div class="row">
-                <div class="col-12 col-sm-6 text-center text-sm-start">
-                    <footer class="blockquote-footer mt-2">&copy; 2022 All Rights Reserved by Puri Bunda - Y&G</footer>
-                </div>
-               
-            </div>
-        </div>
-    </div>
-    <!-- Footer End -->
 
 @endsection

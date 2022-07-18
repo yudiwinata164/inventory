@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataBarang;
 use Illuminate\Http\Request;
 
 class DataBarangController extends Controller
@@ -13,9 +14,28 @@ class DataBarangController extends Controller
      */
     public function index()
     {
-        return view("inventory.data_barang.databarang", [
-            "title" => "Data Barang",
-        ]);
+        $data["databarang"] = DataBarang::all()->where("status", "Digunakan");
+        $data["title"] = "Data Barang";
+
+        return view("inventory.data_barang.databarang", $data);
+    }
+    
+    /**
+     * form detail data barang
+     *
+     * @param  mixed $id
+     * @return void
+     */
+    public function detail($id)
+    {
+        $data["databarang"] = DataBarang::find($id);
+        $data["title"] = "Detail Barang";
+
+        if ($data["databarang"]) {
+            return view("inventory.data_barang.detail", $data);
+        }else{
+            return abort(404);
+        }
     }
 
     /**
@@ -25,9 +45,10 @@ class DataBarangController extends Controller
      */
     public function create()
     {
-        return view("inventory.data_barang.tambah", [
-            "title" => "Tambah Data - Data Barang",
-        ]);
+        $data["title"] = "Tambah Data Barang";
+        $data["text"]  = "Tambah";
+        
+        return view("inventory.data_barang.form-input", $data);
     }
 
     /**
@@ -38,7 +59,18 @@ class DataBarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ValidateData = $request->validate([
+            'tanggal_terima'  => 'required',
+            'nama_barang'     => 'required',
+            'kode_barang'     => 'required|unique:data_barangs',
+            'ip_sistem'       => 'required',
+            'spesifikasi'     => 'required',
+            'vendor'          => 'required',
+        ]);
+        $ValidateData['status'] = 'Digunakan';
+
+        DataBarang::create($ValidateData);
+        return redirect(route('databarang.index'))->with('sukses', 'Satu data telah berhasil ditambahkan.');
     }
 
     /**
@@ -83,6 +115,7 @@ class DataBarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DataBarang::destroy($id);
+        return redirect(route('databarang.index'))->with('sukses', 'Satu data telah dihapus.');
     }
 }

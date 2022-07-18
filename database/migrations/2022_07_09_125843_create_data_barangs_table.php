@@ -15,6 +15,15 @@ class CreateDataBarangsTable extends Migration
     {
         Schema::create('data_barangs', function (Blueprint $table) {
             $table->id();
+            $table->date("tanggal_terima");
+            $table->string("nama_barang");
+            $table->string("kode_barang")->unique();
+            $table->string("ip_sistem");
+            $table->string("spesifikasi");
+            $table->string("vendor");
+            $table->string("password_teamviewer")->nullable();
+            $table->string("password_anydesk")->nullable();
+            $table->string("status");
             $table->timestamps();
         });
     }

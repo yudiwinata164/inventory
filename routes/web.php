@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DataBarangController;
+use App\Http\Controllers\MaintenanceController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -16,16 +17,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Home
-Route::get('/', function () {
-    return view('inventory/home', [
-        "title" => "Home",
-    ]);
-});
+Route::get('/', 'HomeController')->name("Home");
 
 // Login
 Route::get('/login', function () {
-    return view('inventory/login/login');
+    return view('inventory.autentikasi.login');
 });
 
 // Data Barang
-Route::resource('/databarang', 'DataBarangController');
+Route::resource('databarang', 'DataBarangController');
+Route::get('databarang/{databarang}/detail', 'DataBarangController@detail')->name('databarang.detail');
+Route::resource('databarang/{id}/maintenance', 'MaintenanceController');
+
+// Stock Barang
+Route::resource('stockbarang', 'StockBarangController');
+Route::get('stockbarang/{stockbarang}/detail', 'StockBarangController@detail')->name('stockbarang.detail');
+Route::put('stockbarang/{stockbarang}/aktif', 'StockBarangController@aktif')->name('stockbarang.aktif');
