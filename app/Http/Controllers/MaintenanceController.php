@@ -29,9 +29,13 @@ class MaintenanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $data['databarang']  = DataBarang::find($id);
+        $data["title"]       = "Tambah Maintenance";
+        $data["text"]        = "Tambah";
+        
+        return view("inventory.data_barang.maintenance.form-input", $data);
     }
 
     /**
@@ -42,7 +46,20 @@ class MaintenanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ValidateData = $request->validate([
+            'tanggal'       => 'required',
+            'user_awal'     => 'required',
+            'posisi_awal'   => 'required',
+            'lantai'        => 'required',
+            'ram'           => 'required',
+            'prosesor'      => 'required',
+            'kondisi'       => 'required',
+            'pic'           => 'required',
+        ]);
+        $ValidateData['databarang_id'] = $request->id;
+
+        Maintenance::create($ValidateData);
+        return redirect(route('maintenance.index', $request->id))->with('sukses', 'Satu data telah berhasil ditambahkan.');
     }
 
     /**
@@ -62,9 +79,13 @@ class MaintenanceController extends Controller
      * @param  \App\Maintenance  $maintenance
      * @return \Illuminate\Http\Response
      */
-    public function edit(Maintenance $maintenance)
+    public function edit($id, $maintenance)
     {
-        //
+        $data['maintenance'] = Maintenance::find($maintenance);
+        $data["title"]       = "Edit Maintenance";
+        $data["text"]        = "Edit";
+        
+        return view("inventory.data_barang.maintenance.form-input", $data);
     }
 
     /**
@@ -74,9 +95,21 @@ class MaintenanceController extends Controller
      * @param  \App\Maintenance  $maintenance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Maintenance $maintenance)
+    public function update(Request $request)
     {
-        //
+        $ValidateData = $request->validate([
+            'tanggal'       => 'required',
+            'user_awal'     => 'required',
+            'posisi_awal'   => 'required',
+            'lantai'        => 'required',
+            'ram'           => 'required',
+            'prosesor'      => 'required',
+            'kondisi'       => 'required',
+            'pic'           => 'required',
+        ]);
+
+        Maintenance::where('id', $request->maintenance)->update($ValidateData);
+        return redirect(route('maintenance.index', $request->id))->with('sukses', 'Satu data telah berhasil diubah.');
     }
 
     /**
@@ -85,8 +118,9 @@ class MaintenanceController extends Controller
      * @param  \App\Maintenance  $maintenance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Maintenance $maintenance)
+    public function destroy(Request $request)
     {
-        //
+        Maintenance::destroy($request->maintenance);
+        return redirect(route('maintenance.index', $request->id))->with('sukses', 'Satu data telah dihapus.');
     }
 }

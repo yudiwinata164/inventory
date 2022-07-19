@@ -15,7 +15,7 @@ class CreateMaintenancesTable extends Migration
     {
         Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("databarang_id")->references('id')->on('data_barangs');
+            $table->foreignId("databarang_id")->references('id')->on('data_barangs')->onDelete('cascade')->onUpdate('cascade');
             $table->date("tanggal");
             $table->string("user_awal");
             $table->string("posisi_awal");

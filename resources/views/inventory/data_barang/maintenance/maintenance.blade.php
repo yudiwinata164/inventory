@@ -3,6 +3,13 @@
 @section('content')
     <!-- Recent Sales Start -->
     <div class="container-fluid pt-4 px-4">
+        @if (session()->has('sukses'))
+        {{-- Alert Sukses --}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>{{ session('sukses') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <h6 class="mb-0">Data Maintenance dari {{ $databarang->nama_barang }}</h6>
@@ -36,7 +43,11 @@
                             <td>{{ $item->pic }}</td>
                             <td>
                                 <a href="{{ route("maintenance.edit", ["id" => $databarang->id, "maintenance" => $item->id]) }}" class="btn btn-warning">Ubah</a>
-                                <a href="#" onclick="return confirm('Yakin ingin menghapus data ini?')" class="btn btn-danger">Hapus</a>
+                                <form action="{{ route("maintenance.destroy", ["id" => $databarang->id, "maintenance" => $item->id]) }}" method="POST">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button onclick="return confirm('Yakin ingin menghapus data ini?')" class="btn btn-danger">Hapus</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
