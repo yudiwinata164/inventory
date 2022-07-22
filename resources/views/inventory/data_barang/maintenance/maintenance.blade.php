@@ -40,6 +40,7 @@
                             <td>{{ $item->lantai }}</td>
                             <td>{{ $item->ram }}</td>
                             <td>{{ $item->prosesor }}</td>
+                            <td>{{ $item->kondisi }}</td>
                             <td>{{ $item->pic }}</td>
                             <td>
                                 <a href="{{ route("maintenance.edit", ["id" => $databarang->id, "maintenance" => $item->id]) }}" class="btn btn-warning">Ubah</a>

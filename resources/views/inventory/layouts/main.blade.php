@@ -53,7 +53,7 @@
             <a href="/" class="navbar-brand ps-3 d-flex d-lg-none me-4">
                 <img src="https://www.puribunda.com/wp-content/uploads/2017/07/gif.gif" alt="">
             </a>
-            <div class="navbar-nav align-items-center ms-4">
+            <div class="navbar-nav w-100 align-items-center justify-content-between ms-4">
                 <h5 class="m-0">{{ $title }}</h5>
             </div>
 
