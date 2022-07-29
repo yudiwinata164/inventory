@@ -21,7 +21,8 @@
                         <tr class="text-dark text-nowrap text-center">
                             <th scope="col">No</th>
                             <th scope="col">Nama Barang</th>
-                            <th scope="col">Kode Barang</th>
+                            <th scope="col">Kategori Barang</th>
+                            <th scope="col">Seri Perangkat</th>
                             <th scope="col">Opsi</th>
                         </tr>
                     </thead>
@@ -30,14 +31,10 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->nama_barang }}</td>
-                            <td>{{ $item->kode_barang }}</td>
+                            <td>{{ $item->kategori }}</td>
+                            <td>{{ $item->seri_perangkat }}</td>
                             <td>
                                 <div class="row g-2">
-                                    <form action="{{ route("stockbarang.aktif", $item->id) }}" method="POST" class="col mb-2 mb-lg-0">
-                                        @csrf
-                                        @method("PUT")
-                                        <button type="submit" onclick="return confirm('Yakin ingin memindahkan data ini ke data barang aktif?')" class="btn btn-outline-dark w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">inventory</span>Terpakai</button>
-                                    </form>
                                     <div class="col mb-2 mb-lg-0"><a href="{{ route("stockbarang.detail", [ "stockbarang" => $item->id ]) }}" class="btn btn-primary w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">info</span>Detail</a></div>
                                     <div class="col mb-2 mb-lg-0"><a href="{{ route("stockbarang.edit",  $item->id) }}" class="btn btn-warning w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">drive_file_rename_outline</span>Ubah</a></div>
                                     <form action="{{ route("stockbarang.destroy", $item->id) }}" method="POST"  class="col w-fit">

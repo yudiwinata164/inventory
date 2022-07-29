@@ -92,7 +92,10 @@ class DataBarangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data["title"] = "Edit Data Barang";
+        $data["text"]  = "Edit";
+        
+        return view("inventory.data_barang.form-input", $data);
     }
 
     /**

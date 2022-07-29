@@ -36,7 +36,7 @@
                             <td>
                                 <div class="row g-2">
                                     <div class="col"><a href="{{ route("databarang.detail", $item->id) }}" class="btn btn-primary w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">info</span>Detail</a></div>
-                                    <div class="col"><a href="{{ route("maintenance.index", $item->id) }}" class="btn btn-warning w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">settings</span>Maintenance</a></div>
+                                    <div class="col"><a href="{{ route("databarang.edit", $item->id) }}" class="btn btn-warning w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">drive_file_rename_outline</span>Ubah</a></div>
                                     <form action="{{ route("databarang.destroy", $item->id) }}" method="POST"  class="col w-fit">
                                         @csrf
                                         @method("DELETE")

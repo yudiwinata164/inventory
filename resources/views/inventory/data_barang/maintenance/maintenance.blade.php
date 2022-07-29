@@ -19,30 +19,31 @@
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                         <tr class="text-dark">
-                            <th scope="col">No</th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">User Awal</th>
-                            <th scope="col">Posisi Awal</th>
-                            <th scope="col">Lantai</th>
-                            <th scope="col">RAM</th>
-                            <th scope="col">Prosesor</th>
-                            <th scope="col">PIC</th>
-                            <th scope="col">Opsi</th>
+                            <th scope="col" class="text-nowrap">No</th>
+                            <th scope="col" class="text-nowrap">Tanggal</th>
+                            <th scope="col" class="text-nowrap">User Awal</th>
+                            <th scope="col" class="text-nowrap">Posisi Awal</th>
+                            <th scope="col" class="text-nowrap">Lantai</th>
+                            <th scope="col" class="text-nowrap">RAM</th>
+                            <th scope="col" class="text-nowrap">Prosesor</th>
+                            <th scope="col" class="text-nowrap">Kondisi</th>
+                            <th scope="col" class="text-nowrap">PIC</th>
+                            <th scope="col" class="text-nowrap">Opsi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($databarang->maintenance as $item)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->tanggal }}</td>
-                            <td>{{ $item->user_awal }}</td>
-                            <td>{{ $item->posisi_awal }}</td>
-                            <td>{{ $item->lantai }}</td>
-                            <td>{{ $item->ram }}</td>
-                            <td>{{ $item->prosesor }}</td>
-                            <td>{{ $item->kondisi }}</td>
-                            <td>{{ $item->pic }}</td>
-                            <td>
+                            <td class="text-nowrap">{{ $loop->iteration }}</td>
+                            <td class="text-nowrap">{{ $item->tanggal }}</td>
+                            <td class="text-nowrap">{{ $item->user_awal }}</td>
+                            <td class="text-nowrap">{{ $item->posisi_awal }}</td>
+                            <td class="text-nowrap">{{ $item->lantai }}</td>
+                            <td class="text-nowrap">{{ $item->ram }}</td>
+                            <td class="text-nowrap">{{ $item->prosesor }}</td>
+                            <td class="text-nowrap">{{ $item->kondisi }}</td>
+                            <td class="text-nowrap">{{ $item->pic }}</td>
+                            <td class="d-flex gap-2">
                                 <a href="{{ route("maintenance.edit", ["id" => $databarang->id, "maintenance" => $item->id]) }}" class="btn btn-warning">Ubah</a>
                                 <form action="{{ route("maintenance.destroy", ["id" => $databarang->id, "maintenance" => $item->id]) }}" method="POST">
                                     @csrf

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataBarang;
 use Illuminate\Http\Request;
+use App\KategoriBarang;
 
 class StockBarangController extends Controller
 {
@@ -54,6 +55,7 @@ class StockBarangController extends Controller
      */
     public function create()
     {
+        $data["kategoribarang"] = KategoriBarang::all();
         $data["title"] = "Tambah Stock Barang";
         $data["text"] = "Tambah";
         
@@ -69,12 +71,12 @@ class StockBarangController extends Controller
     public function store(Request $request)
     {
         $ValidateData = $request->validate([
-            'tanggal_terima'  => 'required',
-            'nama_barang'     => 'required',
-            'kode_barang'     => 'required|unique:data_barangs',
-            'ip_sistem'       => 'required',
-            'spesifikasi'     => 'required',
-            'vendor'          => 'required',
+            'nama_barang'   => 'required',
+            'kategori'      => 'required',
+            'seri_perangkat'=> 'required|unique:data_barangs',
+            'ram'           => 'required',
+            'prosesor'      => 'required',
+            'tanggal_terima'=> 'required',
         ]);
         $ValidateData['status'] = 'Dalam Gudang';
 
@@ -101,9 +103,10 @@ class StockBarangController extends Controller
      */
     public function edit($stockbarang)
     {
-        $data["stockbarang"] = DataBarang::find($stockbarang);
-        $data["title"]       = "Edit Stock Barang";
-        $data["text"]        = "Edit";
+        $data["stockbarang"]    = DataBarang::find($stockbarang);
+        $data["kategoribarang"] = KategoriBarang::all();
+        $data["title"]          = "Edit Stock Barang";
+        $data["text"]           = "Edit";
         
         return view("inventory.stock_barang.form-input", $data);
     }
@@ -120,15 +123,15 @@ class StockBarangController extends Controller
         $databarang = DataBarang::find($stockbarang);
 
         $rules = [
-            'tanggal_terima' => 'required',
-            'nama_barang'    => 'required',
-            'ip_sistem'      => 'required',
-            'spesifikasi'    => 'required',
-            'vendor'         => 'required',
+            'nama_barang'   => 'required',
+            'kategori'      => 'required',
+            'ram'           => 'required',
+            'prosesor'      => 'required',
+            'tanggal_terima'=> 'required',
         ];
 
-        if ($request->kode_barang != $databarang->kode_barang) {
-            $rules['kode_barang'] = 'required|unique:data_barangs';
+        if ($request->seri_perangkat != $databarang->seri_perangkat) {
+            $rules['seri_perangkat'] = 'required|unique:data_barangs';
         }
 
         $ValidateData = $request->validate($rules);
