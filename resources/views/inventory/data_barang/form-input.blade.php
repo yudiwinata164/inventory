@@ -7,9 +7,9 @@
             <div class="col-12 col-xl-10 m-auto">
                 <div class="bg-light rounded h-100 p-4">
                     <h6 class="mb-4">Form {{ $title }}</h6>
-                    <form method="POST" action="{{ ($title == "Edit Stock Barang") ? route("databarang.update", ["databarang" => $databarang->id]) : route("databarang.store") }}">
+                    <form method="POST" action="{{ ($title == "Edit Data Barang") ? route("databarang.update", ["databarang" => $databarang->id]) : route("databarang.store") }}">
                         @csrf
-                        @if ($title == "Edit Stock Barang")
+                        @if ($title == "Edit Data Barang")
                             @method("PUT")
                         @else
                             @method("POST")
@@ -36,14 +36,15 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="kategori" class="form-label">Kategori Barang</label>
-                                    <select class="form-select mb-3" id="kategori" aria-label="Default select example" name="kategori">
-                                        <option selected disabled>Pilih Kategori</option>
-                                        <option value="CPU">CPU</option>
-                                        <option value="Monitor">Monitor</option>
-                                        <option value="AIO">AIO</option>
-                                        <option value="Laptop">Laptop</option>
-                                        <option value="Printer">Printer</option>
-                                        <option value="Periferal">Periferal</option>
+                                    <select class="form-select mb-3 @error('kategori') is-invalid @enderror" id="kategori" aria-label="Default select example" name="kategori">
+                                        <option selected disabled value="">Pilih Kategori</option>
+                                        @foreach ($kategoribarang as $k_item)
+                                            @if (old('kategori', @$databarang->kategori) == $k_item->nama_kategori)
+                                                <option selected value="{{ $k_item->nama_kategori }}">{{ $k_item->nama_kategori }}</option>
+                                            @else
+                                                <option value="{{ $k_item->nama_kategori }}">{{ $k_item->nama_kategori }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                     @error('kategori')
                                     <div class="invalid-feedback">
@@ -70,28 +71,32 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="ip_sistem" class="form-label">IP Sistem</label>
-                                    <input type="text" class="form-control @error('ip_sistem') is-invalid @enderror" name="ip_sistem" value="{{ old('ip_sistem', @$databarang->ip_sistem) }}" id="ip_sistem">
-                                    @error('ip_sistem')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+                                    <div class="mb-3">
+                                        <label for="prosesor" class="form-label">Prosesor</label>
+                                        <input type="text" class="form-control @error('prosesor') is-invalid @enderror" name="prosesor" value="{{ old('prosesor', @$databarang->prosesor) }}" id="prosesor">
+                                        @error('prosesor')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
-                                    @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="vendor" class="form-label">Vendor</label>
-                                    <input type="text" class="form-control @error('vendor') is-invalid @enderror" name="vendor" value="{{ old('vendor', @$databarang->vendor) }}" id="vendor">
-                                    @error('vendor')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+                                    <div class="mb-3">
+                                        <label for="ram" class="form-label">RAM</label>
+                                        <input type="text" class="form-control @error('ram') is-invalid @enderror" name="ram" value="{{ old('ram', @$databarang->ram) }}" id="ram">
+                                        @error('ram')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">  
                                 <div class="mb-3">
                                     <label for="nama_unit" class="form-label">Nama Unit</label>
-                                    <input type="text" class="form-control @error('nama_unit') is-invalid @enderror" name="nama_unit" value="{{ old('nama_unit', @$databarang->nama_unit) }}" id="nama_unit">
+                                    <input {{ $title == "Edit Data Barang" ? "readonly" : "" }} type="text" class="form-control @error('nama_unit') is-invalid @enderror" name="nama_unit" value="{{ old('nama_unit', @$mutasi->nama_unit) }}" id="nama_unit">
                                     @error('nama_unit')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -100,8 +105,26 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama_user" class="form-label">Nama User</label>
-                                    <input type="text" class="form-control @error('nama_user') is-invalid @enderror" name="nama_user" value="{{ old('nama_user', @$databarang->nama_user) }}" id="nama_user">
+                                    <input {{ $title == "Edit Data Barang" ? "readonly" : "" }} type="text" class="form-control @error('nama_user') is-invalid @enderror" name="nama_user" value="{{ old('nama_user', @$mutasi->nama_user) }}" id="nama_user">
                                     @error('nama_user')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pic" class="form-label">PIC</label>
+                                    <input {{ $title == "Edit Data Barang" ? "readonly" : "" }} type="text" class="form-control @error('pic') is-invalid @enderror" name="pic" value="{{ old('pic', @$mutasi->pic) }}" id="pic">
+                                    @error('pic')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tanggal_mutasi" class="form-label">Tanggal Mutasi</label>
+                                    <input {{ $title == "Edit Data Barang" ? "readonly" : "" }} type="text" class="form-control @error('tanggal_mutasi') is-invalid @enderror" name="tanggal_mutasi" value="{{ old('tanggal_mutasi', @$mutasi->tanggal_mutasi) }}" id="tanggal_mutasi">
+                                    @error('tanggal_mutasi')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -138,33 +161,6 @@
                                     <label for="tanggal_distribusi" class="form-label">Tanggal Distribusi</label>
                                     <input type="date" class="form-control @error('tanggal_distribusi') is-invalid @enderror" name="tanggal_distribusi" value="{{ old('tanggal_distribusi', @$databarang->tanggal_distribusi) }}" id="tanggal_distribusi">
                                     @error('tanggal_distribusi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-CPU2 mb-2">
-                                <h5>Spesifikasi</h1>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="mb-3">
-                                    <label for="prosesor" class="form-label">Prosesor</label>
-                                    <input type="text" class="form-control @error('prosesor') is-invalid @enderror" name="prosesor" value="{{ old('prosesor', @$databarang->prosesor) }}" id="prosesor">
-                                    @error('prosesor')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="mb-3">
-                                    <label for="ram" class="form-label">RAM</label>
-                                    <input type="text" class="form-control @error('ram') is-invalid @enderror" name="ram" value="{{ old('ram', @$databarang->ram) }}" id="ram">
-                                    @error('ram')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

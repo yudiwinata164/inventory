@@ -20,8 +20,8 @@ class CreateDataBarangsTable extends Migration
             $table->string("kategori");
             $table->string("seri_perangkat")->unique();
             $table->string("serial_number")->unique()->nullable();
-            $table->string("ram");
-            $table->string("prosesor");
+            $table->string("ram")->nullable();
+            $table->string("prosesor")->nullable();
             $table->string("password_teamviewer")->nullable();
             $table->string("password_anydesk")->nullable();
             $table->string("status");

@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -12,13 +13,13 @@ class MaintenanceSeeder extends Seeder
      */
     public function run()
     {
-        $now = new DateTime();
-        $date = $now->format("Y-m-d");
+        $date = Carbon::now();
+        $createdDate = clone($date);
 
         DB::table('maintenances')->insert([
             [
                 "databarang_id" => '1',
-                "tanggal"       => $date,
+                "tanggal"       => $createdDate,
                 "user_awal"     => "Poli RJ",
                 "posisi_awal"   => "Poli RJ",
                 "lantai"        => "Lantai 2",
@@ -29,7 +30,7 @@ class MaintenanceSeeder extends Seeder
             ],
             [
                 "databarang_id" => '1',
-                "tanggal"       => $date,
+                "tanggal"       => $createdDate,
                 "user_awal"     => "UGD",
                 "posisi_awal"   => "Ruang IT",
                 "lantai"        => "Lantai 1",
@@ -39,8 +40,8 @@ class MaintenanceSeeder extends Seeder
                 "pic"           => "Arda",
             ],
             [
-                "databarang_id" => '3',
-                "tanggal"       => $date,
+                "databarang_id" => '4',
+                "tanggal"       => $createdDate,
                 "user_awal"     => "UGD",
                 "posisi_awal"   => "Ruang IT",
                 "lantai"        => "Lantai 1",

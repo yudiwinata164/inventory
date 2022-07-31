@@ -24,6 +24,7 @@
      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
  
      <!-- Libraries Stylesheet -->
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
      <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
      <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
      <link rel="stylesheet" href="/css/style.css">
@@ -85,6 +86,7 @@
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/lib/chart/chart.min.js"></script>
     <script src="/lib/easing/easing.min.js"></script>
@@ -96,5 +98,10 @@
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#tabel').DataTable();
+        });
+    </script>
 </body>
 </html>

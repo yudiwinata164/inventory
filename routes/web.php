@@ -1,10 +1,5 @@
 <?php
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\DataBarangController;
-use App\Http\Controllers\MaintenanceController;
-use App\Http\Middleware\CekLogin;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,9 +29,11 @@ Route::middleware("auth")->group(function () {
     Route::resource('databarang', 'DataBarangController');
     Route::get('databarang/{databarang}/detail', 'DataBarangController@detail')->name('databarang.detail');
     Route::resource('databarang/{id}/maintenance', 'MaintenanceController');
+    Route::resource('databarang/{id}/mutasi', 'MutasiController');
     
     // Stock Barang
     Route::resource('stockbarang', 'StockBarangController');
     Route::get('stockbarang/{stockbarang}/detail', 'StockBarangController@detail')->name('stockbarang.detail');
-    Route::put('stockbarang/{stockbarang}/aktif', 'StockBarangController@aktif')->name('stockbarang.aktif');
+    Route::get('stockbarang/{stockbarang}/mutasi', 'StockBarangController@mutasiForm')->name('stockbarang.mutasi');
+    Route::post('stockbarang/{stockbarang}/mutasi/move', 'StockBarangController@mutasi')->name('stockbarang.mutasimove');
 });

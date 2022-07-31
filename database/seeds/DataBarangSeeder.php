@@ -13,7 +13,8 @@ class DataBarangSeeder extends Seeder
      */
     public function run()
     {
-        $nowdate = new Carbon();
+        $date = Carbon::now();
+        $createdDate = clone($date);
         DB::table('data_barangs')->insert([
             [
                 'kode_barang'           => '2.2.01.2021',
@@ -28,6 +29,8 @@ class DataBarangSeeder extends Seeder
                 'status'                => 'Digunakan',
                 'tanggal_terima'        => '2022-07-09',
                 'tanggal_distribusi'    => '2022-07-19',
+                'created_at'            => $createdDate,
+                'updated_at'            => $createdDate,
             ],        
             [
                 'kode_barang'           => null,
@@ -42,6 +45,8 @@ class DataBarangSeeder extends Seeder
                 'status'                => 'Dalam Gudang',
                 'tanggal_terima'        => '2022-07-09',
                 'tanggal_distribusi'    => null,
+                'created_at'            => $createdDate,
+                'updated_at'            => $createdDate,
             ],        
             [
                 'kode_barang'           => null,
@@ -56,6 +61,8 @@ class DataBarangSeeder extends Seeder
                 'status'                => 'Dalam Gudang',
                 'tanggal_terima'        => '2022-07-09',
                 'tanggal_distribusi'    => null,
+                'created_at'            => $createdDate,
+                'updated_at'            => $createdDate,
             ],        
             [
                 'kode_barang'           => '4.2.03.2021',
@@ -70,6 +77,8 @@ class DataBarangSeeder extends Seeder
                 'status'                => 'Digunakan',
                 'tanggal_terima'        => '2022-07-09',
                 'tanggal_distribusi'    => '2022-07-19',
+                'created_at'            => $createdDate,
+                'updated_at'            => $createdDate,
             ],        
         ]);
     }

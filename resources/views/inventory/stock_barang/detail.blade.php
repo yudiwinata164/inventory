@@ -33,12 +33,12 @@
                      <td>{{ $stockbarang->tanggal_terima }}</td>
                   </tr>
                </table>
-               <div class="row mt-3 justify-content-between">
+               <div class="row mt-4 justify-content-between">
                   <div class="col-6 col-md-4 col-lg-3">
                      <a href="{{ route("stockbarang.index") }}" class="btn btn-danger d-flex align-items-center gap-2 justify-content-center">Kembali</a>
                   </div>
                   <div class="col-6 col-md-4 col-lg-3">
-                     <a href="#" class="btn btn-dark d-flex align-items-center gap-2 justify-content-center"><span class="material-symbols-rounded">inventory</span>Mutasi</a>
+                     <a href="{{ route("stockbarang.mutasi", $stockbarang->id) }}" class="btn btn-dark d-flex align-items-center gap-2 justify-content-center"><span class="material-symbols-rounded">inventory</span>Mutasi</a>
                   </div>
                </div>
             </div>

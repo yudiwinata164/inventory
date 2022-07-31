@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataBarang;
+use App\KategoriBarang;
+use App\Mutasi;
 use Illuminate\Http\Request;
 
 class DataBarangController extends Controller
@@ -28,7 +30,9 @@ class DataBarangController extends Controller
      */
     public function detail($id)
     {
-        $data["databarang"] = DataBarang::find($id);
+        $data["databarang"] = DataBarang::where("status", "Digunakan")->find($id);
+        $data["mutasi"] = Mutasi::where("databarang_kode", @$data["databarang"]->kode_barang)->latest("created_at", "desc")->first();
+        // dd($data["mutasi"]);
         $data["title"] = "Detail Barang";
 
         if ($data["databarang"]) {
@@ -45,6 +49,7 @@ class DataBarangController extends Controller
      */
     public function create()
     {
+        $data["kategoribarang"] = KategoriBarang::all();
         $data["title"] = "Tambah Data Barang";
         $data["text"]  = "Tambah";
         
@@ -59,17 +64,47 @@ class DataBarangController extends Controller
      */
     public function store(Request $request)
     {
-        $ValidateData = $request->validate([
-            'tanggal_terima'  => 'required',
-            'nama_barang'     => 'required',
-            'kode_barang'     => 'required|unique:data_barangs',
-            'ip_sistem'       => 'required',
-            'spesifikasi'     => 'required',
-            'vendor'          => 'required',
-        ]);
+        $rules = [
+            'kode_barang'           => 'required|unique:data_barangs',
+            'nama_barang'           => 'required',
+            'kategori'              => 'required',
+            'seri_perangkat'        => 'required|unique:data_barangs',
+            'serial_number'         => 'required|unique:data_barangs',
+            'prosesor'              => '',
+            'ram'                   => '',
+            'password_anydesk'      => '',
+            'password_teamviewer'   => '',
+            'tanggal_terima'        => 'required',
+            'tanggal_distribusi'    => 'required',
+            'nama_unit'     => 'required',
+            'nama_user'     => 'required',
+            'pic'           => 'required',
+        ];
+        $ValidateData = $request->validate($rules);
         $ValidateData['status'] = 'Digunakan';
+        $request_stockbarang = [
+            "kode_barang"           => $ValidateData['kode_barang'],
+            "nama_barang"           => $ValidateData['nama_barang'],
+            "kategori"              => $ValidateData['kategori'],
+            "seri_perangkat"        => $ValidateData['seri_perangkat'],
+            "serial_number"         => $ValidateData['serial_number'],
+            "prosesor"              => $ValidateData['prosesor'],
+            "ram"                   => $ValidateData['ram'],
+            "password_anydesk"      => $ValidateData['password_anydesk'],
+            "password_teamviewer"   => $ValidateData['password_teamviewer'],
+            "tanggal_terima"        => $ValidateData['tanggal_terima'],
+            "tanggal_distribusi"    => $ValidateData['tanggal_distribusi'],
+            "status"                => $ValidateData['status'],
+        ];
+        $request_mutasi = [
+            "nama_unit"     => $ValidateData['nama_unit'],
+            "nama_user"     => $ValidateData['nama_user'],
+            "pic"           => $ValidateData['pic'],
+            "databarang_kode" => $ValidateData['kode_barang'],
+        ];
 
-        DataBarang::create($ValidateData);
+        Mutasi::create($request_mutasi);
+        DataBarang::create($request_stockbarang);
         return redirect(route('databarang.index'))->with('sukses', 'Satu data telah berhasil ditambahkan.');
     }
 
@@ -92,6 +127,9 @@ class DataBarangController extends Controller
      */
     public function edit($id)
     {
+        $data["kategoribarang"] = KategoriBarang::all();
+        $data["databarang"]     = DataBarang::find($id);
+        $data["mutasi"]         = Mutasi::where("databarang_kode", $data["databarang"]->kode_barang)->latest("created_at", "asc")->first();
         $data["title"] = "Edit Data Barang";
         $data["text"]  = "Edit";
         
@@ -107,7 +145,32 @@ class DataBarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $databarang = DataBarang::find($id);
+        $rules = [
+            'nama_barang'           => 'required',
+            'kategori'              => 'required',
+            'prosesor'              => '',
+            'ram'                   => '',
+            'password_anydesk'      => '',
+            'password_teamviewer'   => '',
+            'tanggal_terima'        => 'required',
+            'tanggal_distribusi'    => 'required',
+        ];
+        
+        if ($request->kode_barang != $databarang->kode_barang) {
+            $rules['kode_barang'] = 'required|unique:data_barangs';
+        }
+        if ($request->seri_perangkat != $databarang->seri_perangkat) {
+            $rules['seri_perangkat'] = 'required|unique:data_barangs';
+        }
+        if ($request->serial_number != $databarang->serial_number) {
+            $rules['serial_number'] = 'required|unique:data_barangs';
+        }
+        
+        $ValidateData = $request->validate($rules);
+        
+        DataBarang::where("id", $id)->update($ValidateData);
+        return redirect(route('databarang.index'))->with('sukses', 'Satu data telah berhasil diubah.');
     }
 
     /**

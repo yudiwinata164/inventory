@@ -10,11 +10,11 @@
                     <table class="table text-start table-hover mb-0">
                       <tr>
                         <th class="d-flex justify-content-between">Kode Barang <span>:</span></th>
-                        <td>{{ $databarang->kode_barang }}</td>
+                        <td>{{ @$databarang->kode_barang }}</td>
                       </tr>
                      <tr>
                        <th class="d-flex justify-content-between">Nama Barang <span>:</span></th>
-                       <td>{{ $databarang->nama_barang }}</td>
+                       <td>{{ @$databarang->nama_barang }}</td>
                      </tr>
                      <tr>
                        <th class="d-flex justify-content-between">Kategori<span>:</span></th>
@@ -29,43 +29,50 @@
                        <td>{{ @$databarang->serial_number }}</td>
                      </tr>
                      <tr>
-                        <th class="d-flex justify-content-between">IP Sistem <span>:</span></th>
-                        <td>{{ $databarang->ip_sistem }}</td>
+                        <th class="d-flex justify-content-between">Nama Unit <span>:</span></th>
+                        <td>{{ @$mutasi->nama_unit }}</td>
                      </tr>
                      <tr>
-                        <th class="d-flex justify-content-between">Spesifikasi <span>:</span></th>
-                        <td>{{ $databarang->spesifikasi }}</td>
+                        <th class="d-flex justify-content-between">Nama User <span>:</span></th>
+                        <td>{{ @$mutasi->nama_user }}</td>
                      </tr>
                      <tr>
-                        <th class="d-flex justify-content-between">Vendor <span>:</span></th>
-                        <td>{{ $databarang->vendor }}</td>
+                        <th class="d-flex justify-content-between">Prosesor <span>:</span></th>
+                        <td>{{ @$databarang->prosesor }}</td>
+                     </tr>
+                     <tr>
+                        <th class="d-flex justify-content-between">RAM <span>:</span></th>
+                        <td>{{ @$databarang->ram }}</td>
                      </tr>
                      <tr>
                        <th class="d-flex justify-content-between">Password Teamviewer <span>:</span></th>
-                       <td>{{ $databarang->password_teamviewer }}</td>
+                       <td>{{ @$databarang->password_teamviewer }}</td>
                      </tr>
                      <tr>
                        <th class="d-flex justify-content-between">Password Anydesk <span>:</span></th>
-                       <td>{{ $databarang->password_anydesk }}</td>
+                       <td>{{ @$databarang->password_anydesk }}</td>
                      </tr>
                      <tr>
                       <th class="d-flex justify-content-between">Tanggal Terima <span>:</span></th>
-                      <td>{{ $databarang->tanggal_terima }}</td>
+                      <td>{{ @$databarang->tanggal_terima }}</td>
                     </tr>
                      <tr>
                       <th class="d-flex justify-content-between">Tanggal Distribusi <span>:</span></th>
-                      <td>{{ $databarang->tanggal_terima }}</td>
+                      <td>{{ @$databarang->tanggal_terima }}</td>
                     </tr>
                      <tr>
                       <th class="d-flex justify-content-between">Tanggal & Waktu Pencatatan <span>:</span></th>
-                      <td>{{ $databarang->created_at }}</td>
+                      <td>{{ @$databarang->created_at }}</td>
                     </tr>
                    </table>
                 </div>
             </div>
-            <div class="col-12 mt-3 d-flex justify-content-end gap-3">
+            <div class="col-12 mt-3 d-flex justify-content-between gap-3">
               <div><a href="{{ route("databarang.index") }}" class="btn btn-danger w-100 d-flex align-items-center gap-2">Kembali</a></div>
-              <div><a href="{{ route("maintenance.index", $databarang->id) }}" class="btn btn-warning w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">settings</span>Maintenance</a></div>
+              <div class="d-flex gap-3">
+                <a href="{{ route("mutasi.index", $databarang->id) }}" class="btn btn-dark w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">inventory</span>Mutasi</a>
+                <a href="{{ route("maintenance.index", $databarang->id) }}" class="btn btn-warning w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">settings</span>Maintenance</a>
+              </div>
             </div>
         </div>
     </div>

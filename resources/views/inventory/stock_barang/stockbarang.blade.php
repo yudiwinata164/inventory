@@ -16,7 +16,7 @@
                 <a href="{{ route("stockbarang.create") }}" class="btn btn-outline-primary text-nowrap d-flex align-items-center gap-2"><span class="material-symbols-rounded">add_circle</span>Tambah Data</a>
             </div>
             <div class="table-responsive">
-                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <table id="tabel" class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                         <tr class="text-dark text-nowrap text-center">
                             <th scope="col">No</th>
