@@ -122,15 +122,6 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="tanggal_mutasi" class="form-label">Tanggal Mutasi</label>
-                                    <input {{ $title == "Edit Data Barang" ? "readonly" : "" }} type="text" class="form-control @error('tanggal_mutasi') is-invalid @enderror" name="tanggal_mutasi" value="{{ old('tanggal_mutasi', @$mutasi->tanggal_mutasi) }}" id="tanggal_mutasi">
-                                    @error('tanggal_mutasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
                                     <label for="password_teamviewer" class="form-label">Password Teamviewer</label>
                                     <input type="text" class="form-control @error('password_teamviewer') is-invalid @enderror" name="password_teamviewer" value="{{ old('password_teamviewer', @$databarang->password_teamviewer) }}" id="password_teamviewer">
                                     @error('password_teamviewer')

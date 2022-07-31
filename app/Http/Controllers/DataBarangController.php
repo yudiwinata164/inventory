@@ -32,7 +32,6 @@ class DataBarangController extends Controller
     {
         $data["databarang"] = DataBarang::where("status", "Digunakan")->find($id);
         $data["mutasi"] = Mutasi::where("databarang_kode", @$data["databarang"]->kode_barang)->latest("created_at", "desc")->first();
-        // dd($data["mutasi"]);
         $data["title"] = "Detail Barang";
 
         if ($data["databarang"]) {
@@ -97,10 +96,11 @@ class DataBarangController extends Controller
             "status"                => $ValidateData['status'],
         ];
         $request_mutasi = [
-            "nama_unit"     => $ValidateData['nama_unit'],
-            "nama_user"     => $ValidateData['nama_user'],
-            "pic"           => $ValidateData['pic'],
-            "databarang_kode" => $ValidateData['kode_barang'],
+            "nama_unit"         => $ValidateData['nama_unit'],
+            "nama_user"         => $ValidateData['nama_user'],
+            "pic"               => $ValidateData['pic'],
+            "tanggal_mutasi"    => $ValidateData['tanggal_distribusi'],
+            "databarang_kode"   => $ValidateData['kode_barang'],
         ];
 
         Mutasi::create($request_mutasi);
