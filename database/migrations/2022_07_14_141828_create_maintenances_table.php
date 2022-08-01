@@ -17,13 +17,12 @@ class CreateMaintenancesTable extends Migration
             $table->id();
             $table->foreignId("databarang_id")->references('id')->on('data_barangs')->onDelete('cascade')->onUpdate('cascade');
             $table->date("tanggal");
-            $table->string("user_awal");
-            $table->string("posisi_awal");
-            $table->string("lantai");
-            $table->string("ram");
-            $table->string("prosesor");
-            $table->string("kondisi");
+            $table->string("jenis_maintenance");
             $table->string("pic");
+            $table->string("user");
+            $table->string("unit");
+            $table->string("service");
+            $table->date("estimasi");
             $table->timestamps();
         });
     }

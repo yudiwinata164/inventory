@@ -22,7 +22,6 @@
                             <th scope="col">No</th>
                             <th scope="col">Nama Barang</th>
                             <th scope="col">Kode Barang</th>
-                            <th scope="col">Jumlah Maintenance</th>
                             <th scope="col">Opsi</th>
                         </tr>
                     </thead>
@@ -31,13 +30,12 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td class="text-start">{{ $item->nama_barang }}</td>
-                            <td>{{ $item->kode_barang }}</td>
-                            <td>{{ $item->maintenance->count() }}</td>
+                            <td>{{ @$item->kode_barang }}</td>
                             <td>
                                 <div class="row g-2">
                                     <div class="col"><a href="{{ route("databarang.detail", $item->id) }}" class="btn btn-primary w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">info</span>Detail</a></div>
                                     <div class="col"><a href="{{ route("databarang.edit", $item->id) }}" class="btn btn-warning w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">drive_file_rename_outline</span>Ubah</a></div>
-                                    <form action="{{ route("databarang.destroy", $item->id) }}" method="POST"  class="col w-fit">
+                                    <form action="{{ route("databarang.destroy", $item->id) }}" method="POST"  class="col">
                                         @csrf
                                         @method("DELETE")
                                         <button type="submit" onclick="return confirm('Yakin ingin menghapus data ini?')" class="btn btn-danger w-100 d-flex align-items-center gap-2"><span class="material-symbols-rounded">delete</span>Hapus</button>

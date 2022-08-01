@@ -21,13 +21,12 @@
                         <tr class="text-dark">
                             <th scope="col" class="text-nowrap">No</th>
                             <th scope="col" class="text-nowrap">Tanggal</th>
-                            <th scope="col" class="text-nowrap">User Awal</th>
-                            <th scope="col" class="text-nowrap">Posisi Awal</th>
-                            <th scope="col" class="text-nowrap">Lantai</th>
-                            <th scope="col" class="text-nowrap">RAM</th>
-                            <th scope="col" class="text-nowrap">Prosesor</th>
-                            <th scope="col" class="text-nowrap">Kondisi</th>
+                            <th scope="col" class="text-nowrap">Jenis Maintenance</th>
                             <th scope="col" class="text-nowrap">PIC</th>
+                            <th scope="col" class="text-nowrap">User</th>
+                            <th scope="col" class="text-nowrap">Unit</th>
+                            <th scope="col" class="text-nowrap">Service</th>
+                            <th scope="col" class="text-nowrap">Estimasi</th>
                             <th scope="col" class="text-nowrap">Opsi</th>
                         </tr>
                     </thead>
@@ -36,13 +35,12 @@
                         <tr>
                             <td class="text-nowrap">{{ $loop->iteration }}</td>
                             <td class="text-nowrap">{{ $item->tanggal }}</td>
-                            <td class="text-nowrap">{{ $item->user_awal }}</td>
-                            <td class="text-nowrap">{{ $item->posisi_awal }}</td>
-                            <td class="text-nowrap">{{ $item->lantai }}</td>
-                            <td class="text-nowrap">{{ $item->ram }}</td>
-                            <td class="text-nowrap">{{ $item->prosesor }}</td>
-                            <td class="text-nowrap">{{ $item->kondisi }}</td>
+                            <td class="text-nowrap">{{ $item->jenis_maintenance }}</td>
                             <td class="text-nowrap">{{ $item->pic }}</td>
+                            <td class="text-nowrap">{{ $item->user }}</td>
+                            <td class="text-nowrap">{{ $item->unit }}</td>
+                            <td class="text-nowrap">{{ $item->service }}</td>
+                            <td class="text-nowrap">{{ $item->estimasi }}</td>
                             <td class="d-flex gap-2">
                                 <a href="{{ route("maintenance.edit", ["id" => $databarang->id, "maintenance" => $item->id]) }}" class="btn btn-warning">Ubah</a>
                                 <form action="{{ route("maintenance.destroy", ["id" => $databarang->id, "maintenance" => $item->id]) }}" method="POST">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataBarang;
+use App\JenisMaintenance;
 use App\Maintenance;
 use Illuminate\Http\Request;
 
@@ -31,9 +32,10 @@ class MaintenanceController extends Controller
      */
     public function create($id)
     {
-        $data['databarang']  = DataBarang::find($id);
-        $data["title"]       = "Tambah Maintenance";
-        $data["text"]        = "Tambah";
+        $data['databarang']         = DataBarang::find($id);
+        $data['jenis_maintenance']  = JenisMaintenance::all();
+        $data["title"]              = "Tambah Maintenance";
+        $data["text"]               = "Tambah";
         
         return view("inventory.data_barang.maintenance.form-input", $data);
     }
@@ -47,14 +49,13 @@ class MaintenanceController extends Controller
     public function store(Request $request)
     {
         $ValidateData = $request->validate([
-            'tanggal'       => 'required',
-            'user_awal'     => 'required',
-            'posisi_awal'   => 'required',
-            'lantai'        => 'required',
-            'ram'           => 'required',
-            'prosesor'      => 'required',
-            'kondisi'       => 'required',
-            'pic'           => 'required',
+            'tanggal'           => 'required',
+            'jenis_maintenance' => 'required',
+            'pic'               => 'required',
+            'user'              => 'required',
+            'unit'              => 'required',
+            'service'           => 'required',
+            'estimasi'          => 'required',
         ]);
         $ValidateData['databarang_id'] = $request->id;
 
@@ -81,9 +82,10 @@ class MaintenanceController extends Controller
      */
     public function edit($id, $maintenance)
     {
-        $data['maintenance'] = Maintenance::find($maintenance);
-        $data["title"]       = "Edit Maintenance";
-        $data["text"]        = "Edit";
+        $data['maintenance']        = Maintenance::find($maintenance);
+        $data['jenis_maintenance']  = JenisMaintenance::all();
+        $data["title"]              = "Edit Maintenance";
+        $data["text"]               = "Edit";
         
         return view("inventory.data_barang.maintenance.form-input", $data);
     }
@@ -98,14 +100,13 @@ class MaintenanceController extends Controller
     public function update(Request $request)
     {
         $ValidateData = $request->validate([
-            'tanggal'       => 'required',
-            'user_awal'     => 'required',
-            'posisi_awal'   => 'required',
-            'lantai'        => 'required',
-            'ram'           => 'required',
-            'prosesor'      => 'required',
-            'kondisi'       => 'required',
-            'pic'           => 'required',
+            'tanggal'           => 'required',
+            'jenis_maintenance' => 'required',
+            'pic'               => 'required',
+            'user'              => 'required',
+            'unit'              => 'required',
+            'service'           => 'required',
+            'estimasi'          => 'required',
         ]);
 
         Maintenance::where('id', $request->maintenance)->update($ValidateData);
